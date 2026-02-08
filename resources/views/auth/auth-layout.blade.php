@@ -16,25 +16,26 @@
 
 
 <body>
-<div class="main-wrapper login-body">
-    <div class="login-wrapper">
-        <div class="container">
-            <div class="loginbox">
-                <div class="login-left"> <img class="img-fluid" src="assets/img/logo.png" alt="Logo"> </div>
-                <div class="login-right">
-                    <div class="login-right-wrap">
-                        @yield('content')
+    <div class="main-wrapper login-body">
+        <div class="login-wrapper">
+            <div class="container">
+                <div class="loginbox">
+                    <div class="login-left"> <img class="img-fluid" src="{{ asset('back-auth/assets/img/logo.png') }}"
+                            alt="Logo"> </div>
+                    <div class="login-right">
+                        <div class="login-right-wrap">
+                            @yield('content')
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<script src="{{ asset('back-auth/assets/js/jquery-3.5.1.min.js') }}"></script>
-<script src="{{ asset('back-auth/assets/js/popper.min.js') }}"></script>
-<script src="{{ asset('back-auth/assets/js/bootstrap.min.js') }}"></script>
-<script src="{{ asset('back-auth/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
-<script src="{{ asset('back-auth/assets/js/script.js') }}"></script>
+    <script src="{{ asset('back-auth/assets/js/jquery-3.5.1.min.js') }}"></script>
+    <script src="{{ asset('back-auth/assets/js/popper.min.js') }}"></script>
+    <script src="{{ asset('back-auth/assets/js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('back-auth/assets/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    <script src="{{ asset('back-auth/assets/js/script.js') }}"></script>
 
 </body>
 
