@@ -1,11 +1,7 @@
    <div class="header">
        <div class="header-left">
            <a href="index.html" class="logo">
-               <img src="assets/img/logo.png" width="50" height="70" alt="logo" />
-               <span class="logoclass">John Doe</span>
-           </a>
-           <a href="index.html" class="logo logo-small">
-               <img src="assets/img/logo.png" alt="Logo" width="30" height="30" />
+               <span class="logoclass">Technews</span>
            </a>
        </div>
        <a href="javascript:void(0);" id="toggle_btn">
@@ -16,8 +12,9 @@
 
            <li class="nav-item dropdown has-arrow">
                <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-                   <span class="user-img"><img class="rounded-circle" src="assets/img/profiles/avatar-01.png"
-                           width="31" alt="John Doe" /></span>
+                   <span class="user-img"> <img src="{{ asset('storage/profile/' . Auth::user()->image) }}"
+                           alt="Photo de profil" width="40" height="40"
+                           style="border-radius: 50%; object-fit: cover;"></span>
                </a>
                <div class="dropdown-menu">
                    <div class="user-header">
@@ -26,13 +23,16 @@
                                class="avatar-img rounded-circle" />
                        </div>
                        <div class="user-text">
-                           <h6>John Doe</h6>
+                           <h6>{{ Auth::user()->name }}</h6>
                            <p class="text-muted mb-0">Administrateur</p>
                        </div>
                    </div>
-                   <a class="dropdown-item" href="profile.html">Profile</a>
+                   <a class="dropdown-item" href="{{ route('profile.edit') }}">Profile</a>
                    <a class="dropdown-item" href="settings.html">Paramettre</a>
-                   <a class="dropdown-item" href="login.html">Deconnexion</a>
+                   <form action="{{ route('logout') }}" method="POST">
+                       @csrf
+                       <button class="dropdown-item">Deconnexion</button>
+                   </form>
                </div>
            </li>
        </ul>
