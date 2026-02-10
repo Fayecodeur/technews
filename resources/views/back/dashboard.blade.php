@@ -2,7 +2,7 @@
 @section('title', 'Acceuil')
 @section('header-title', 'Tableau de bord')
 @section('content')
-    <div class="row">
+    {{-- <div class="row">
         <div class="col-xl-3 col-sm-6 col-12">
             <div class="card board1 fill">
                 <div class="card-body">
@@ -132,5 +132,5 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 @endsection
