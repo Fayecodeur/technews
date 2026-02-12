@@ -13,7 +13,7 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('back.category.index');
+        return view('back.category.index', ['categories' => Category::all() ]);
     }
 
     /**
@@ -31,6 +31,7 @@ class CategoryController extends Controller
     {
         Category::create($request->validated());
         return to_route('category.index')->with('success', 'Categorie ajouté avec succés');
+
     }
 
     /**

@@ -3,14 +3,9 @@
 @section('header-title', 'Catégories')
 @section('content')
     <div class="row align-items-center">
-        @if(session('success'))
-            <div class="alert alert-success">
-                {{session('success')}}
-            </div>
-        @endif
         <div class="col">
-            <div class="mt-5">
-                <h4 class="card-title float-left mt-2">Categories</h4>
+            <div class="mt-2">
+                <h4 class="card-title float-left mt-2">Liste des categories</h4>
                 <a
                     href="{{route('category.create')}}"
                     class="btn btn-primary float-right veiwbutton"
@@ -25,26 +20,35 @@
             <div class="card card-table">
                 <div class="card-body booking_card">
                     <div class="table-responsive">
-                        <table class="datatable table-stripped table table-hover table-center mb-0">
+                        <table class="table-stripped table table-hover table-center mb-0">
                             <thead>
                             <tr>
                                 <th>ID Categorie</th>
                                 <th>Nom</th>
+                                <th>Status</th>
                                 <th>Description</th>
                                 <th class="text-right">Actions</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr>
-                                <td>CAT-0001</td>
-                                <td>Nom categorie</td>
-                                <td>Breve description</td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action"> <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v ellipse_color"></i></a>
-                                        <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="edit-categorie.html"><i class="fas fa-pencil-alt m-r-5"></i> Modifier</a> <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_asset"><i class="fas fa-trash-alt m-r-5"></i> Supprimer</a> </div>
-                                    </div>
-                                </td>
-                            </tr>
+                            @foreach($categories as $categorie)
+                                <tr>
+                                    <td>CAT-00{{$categorie->id}}</td>
+                                    <td>{{$categorie->name}}</td>
+                                    <td>
+                                        <span class="badge p-2 {{$categorie->is_active ? ' rounded-pill text-bg-success' : 'rounded-pill text-bg-danger'}}">
+                                            {{$categorie->is_active ? 'Active' : 'Désactivé'}}
+                                        </span>
+                                    </td>
+                                    <td>{{$categorie->description ?? 'Pas de description'}}</td>
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action"> <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v ellipse_color"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right"> <a class="dropdown-item" href="edit-categorie.html"><i class="fas fa-pencil-alt m-r-5"></i> Modifier</a> <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_asset"><i class="fas fa-trash-alt m-r-5"></i> Supprimer</a> </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            @endforeach
+
 
                             </tbody>
 
