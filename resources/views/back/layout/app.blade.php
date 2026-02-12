@@ -41,6 +41,18 @@
     {{-- Scripts dashboard  --}}
     @include('back.partials.scripts')
     {{-- Fin Script Dashboard  --}}
+    @if(session('success'))
+        <script>
+            iziToast.success({
+                title: 'Succès !',
+                message: "{{ session('success') }}",
+                position: 'topRight'
+            });
+        </script>
+    @endif
+
+
+
 </body>
 
 </html>
