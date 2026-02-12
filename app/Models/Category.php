@@ -22,4 +22,8 @@ class Category extends Model
     {
         return SlugOptions::create()->generateSlugsFrom('name')->saveSlugsTo('slug');
     }
+    public function getRouteKeyName(): string
+    {
+        return 'slug';
+    }
 }
