@@ -39,7 +39,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+
     }
 
     /**
@@ -47,15 +47,17 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('back.category.form', ['category' => $category]);
+
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        //
+        $category->update($request->validated());
+        return to_route('category.index')->with('success', 'Categorie mise à jour avec succés');
     }
 
     /**
@@ -63,6 +65,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        //
+        $category->delete();
+        return to_route('category.index')->with('success', 'Categorie supprimée avec succés');
+
     }
 }
