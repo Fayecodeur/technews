@@ -29,18 +29,19 @@
                         <div class="form-group">
                             <label>Catégorie</label>
                             <select class="form-select" name="category_id">
+                                <option value="">Sélectionnez une catégorie</option>
                                 @foreach($categories as $categorie)
                                     <option value="{{ $categorie->id }}" {{ old('category_id') == $categorie->id ? 'selected' : '' }}>
                                         {{ $categorie->name }}
                                     </option>
                                 @endforeach
                             </select>
+
                             @error('category_id')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
-
 
                     <!-- Image -->
                     <div class="col-md-4">
@@ -88,7 +89,7 @@
                                 id="article_active"
                                 name="is_active"
                                 value="1"
-                                {{ old('is_active', 1) == 1 ? 'checked' : '' }}
+                                {{ old('is_active', '1') === '1' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_active">Publier</label>
                         </div>
@@ -99,7 +100,7 @@
                                 id="article_inactive"
                                 name="is_active"
                                 value="0"
-                                {{ old('is_active') == 0 ? 'checked' : '' }}
+                                {{ old('is_active') === '0' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_inactive">Ne pas publier</label>
                         </div>
@@ -120,7 +121,7 @@
                                 id="article_share_active"
                                 name="is_shareable"
                                 value="1"
-                                {{ old('is_shareable', 1) == 1 ? 'checked' : '' }}
+                                {{ old('is_shareable', '1') === '1' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_share_active">Partageable</label>
                         </div>
@@ -131,7 +132,7 @@
                                 id="article_share_inactive"
                                 name="is_shareable"
                                 value="0"
-                                {{ old('is_shareable') == 0 ? 'checked' : '' }}
+                                {{ old('is_shareable') === '0' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_share_inactive">Non partageable</label>
                         </div>
@@ -152,7 +153,7 @@
                                 id="article_comment_active"
                                 name="is_commentable"
                                 value="1"
-                                {{ old('is_commentable', 1) == 1 ? 'checked' : '' }}
+                                {{ old('is_commentable', '1') === '1' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_comment_active">Autorisé</label>
                         </div>
@@ -163,7 +164,7 @@
                                 id="article_comment_inactive"
                                 name="is_commentable"
                                 value="0"
-                                {{ old('is_commentable') == 0 ? 'checked' : '' }}
+                                {{ old('is_commentable') === '0' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_comment_inactive">Non autorisé</label>
                         </div>
@@ -173,14 +174,13 @@
                     </div>
 
                     <!-- Bouton -->
-                    <div class="col-12 mt-4">
-                        <button type="submit" class="btn btn-primary block w-25">
-                            Enregistrer l'article
-                        </button>
+                    <div class="col-12 mt-3">
+                        <button type="submit" class="btn btn-primary w-25">Enregistrer l'article</button>
                     </div>
 
                 </div>
             </form>
+
         </div>
     </div>
 
