@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Storage;
 use Spatie\Sluggable\HasSlug;
 use Spatie\Sluggable\SlugOptions;
 
@@ -18,7 +19,7 @@ class Article extends Model
         'is_active',
         'is_commentable',
         'is_shareable',
-        'categories_id',
+        'category_id',
         'author_id',
 
     ];
@@ -32,5 +33,9 @@ class Article extends Model
     public function getRouteKeyName(): string
     {
         return 'slug';
+    }
+
+    public function imageUrl(): string{
+        return Storage::url($this->image);
     }
 }
