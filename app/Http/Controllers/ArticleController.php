@@ -63,7 +63,7 @@ class ArticleController extends Controller
      */
     public function show(Article $article)
     {
-        //
+        return view('back.articles.show', ['article' => $article]);
     }
 
     /**
