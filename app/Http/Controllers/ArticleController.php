@@ -44,7 +44,7 @@ class ArticleController extends Controller
         $data['author_id'] = Auth::id();
 
         // Création de l'article
-        Article::create([
+        $article = Article::create([
             'title' => $data['title'],
             'description' => $data['description'],
             'image' => $data['image'] ?? null,
@@ -54,6 +54,15 @@ class ArticleController extends Controller
             'category_id' => $data['category_id'],
             'author_id' => $data['author_id'],
         ]);
+
+        // Gestion des tags
+        if (!empty($data['tags'])) {
+            // On transforme la string en tableau et supprime les espaces superflus
+            $tags = array_map('trim', explode(',', $data['tags']));
+
+            // On attache les tags à l'article (package Conner Tagging)
+            $article->tag($tags);
+        }
 
         return redirect()->route('article.index')->with('success', 'Article créé avec succès');
     }

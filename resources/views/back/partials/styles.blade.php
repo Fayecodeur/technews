@@ -7,6 +7,15 @@
 <link rel="stylesheet" href="https://cdn.oesmith.co.uk/morris-0.5.1.css" />
 <link rel="stylesheet" href="{{ asset('back-auth/assets/plugins/morris/morris.css') }}" />
 <link rel="stylesheet" href="{{ asset('back-auth/assets/css/style.css') }}" />
+<style>
+    .bootstrap-tagsinput .tag{
+        margin-right: 2px;
+        color: #ffffff;
+        background: #2196f3;
+        padding: 3px 7px;
+        border-radius: 3px;
+    }
+</style>
 <!-- iziToast CSS -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/css/iziToast.min.css" />
 

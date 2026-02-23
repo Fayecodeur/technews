@@ -6,6 +6,10 @@
 <script src="{{ asset('back-auth/assets/plugins/morris/morris.min.js') }}"></script>
 <script src="{{ asset('back-auth/assets/js/chart.morris.js') }}"></script>
 <script src="{{ asset('back-auth/assets/js/script.js') }}"></script>
+
+<!-- Bootstrap Tags Input JS-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-tagsinput/0.8.0/bootstrap-tagsinput.min.js"></script>
+
 <!-- iziToast JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/izitoast/1.4.0/js/iziToast.min.js"></script>
 
