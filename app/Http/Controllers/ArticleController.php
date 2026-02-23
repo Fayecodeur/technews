@@ -15,7 +15,7 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        return view('back.articles.index');
+        return view('back.articles.index', ['articles' => Article::all()]);
     }
 
     /**
