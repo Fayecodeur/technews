@@ -15,14 +15,12 @@
             <div class="card card-table">
                 <div class="card-body booking_card">
                     <div class="table-responsive">
-                        <table class="datatable table-stripped table table-hover table-center mb-0">
+                        <table class="table-sm table-stripped table table-hover table-center mb-0 ">
                             <thead>
                             <tr>
-                                <th>ID Article</th>
-                                <th>Image</th>
                                 <th>Titre</th>
+                                <th>Image</th>
                                 <th>Categorie</th>
-                                <th>Date</th>
                                 <th>Publication</th>
                                 <th>Partage</th>
                                 <th>Commentaires</th>
@@ -30,45 +28,90 @@
                                 <th class="text-right">Actions</th>
                             </tr>
                             </thead>
+
                             <tbody>
-                            <tr>
-                                <td>ART-0001</td>
-                                <td></td>
-                                <td>Titre de l'article</td>
-                                <td>Categorie</td>
-                                <td>21-03-2020</td>
-                                <td>
-                                    <div class="actions"> <a href="#" class="btn btn-sm bg-success-light mr-2">Publié</a> </div>
-                                </td>
-                                <td>
-                                    <div class="actions"> <a href="#" class="btn btn-sm bg-success-light mr-2">Active</a> </div>
-                                </td>
-                                <td>
-                                    <div class="actions"> <a href="#" class="btn btn-sm bg-success-light mr-2">Active</a> </div>
-                                </td>
-                                <td>
-                                    <h2 class="table-avatar">
-                                        <a href="profile.html" class="avatar avatar-sm mr-2"><img class="avatar-img rounded-circle" src="assets/img/profiles/avatar-03.jpg" alt="User Image"></a>
-                                        <a href="profile.html">Tommy Bernal <span>#0001</span></a>
-                                    </h2>
-                                </td>
-                                <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                        <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="fas fa-ellipsis-v ellipse_color"></i>
-                                        </a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="edit-article.html">
-                                                <i class="fas fa-pencil-alt m-r-5"></i> Voir
+                            @foreach($articles as $article)
+                                <tr>
+                                    <td>{{$article->title}}</td>
+                                    <td>
+                                        <img src="{{$article->imageUrl()}}" alt="Image de l'article"
+                                             class="rounded-circle object-fit-cover"
+                                             width="70"
+                                             height="70"
+                                        >
+                                    </td>
+                                    <td>{{$article->category->name}}</td>
+                                    <td>
+                                        @if($article->is_active )
+                                            <span class="btn btn-sm bg-success-light mr-2">Activé</span>
+                                        @else
+                                            <span class="btn btn-sm bg-danger-light mr-2">Désactivé</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        @if($article->is_shareable )
+                                            <span class="btn btn-sm bg-success-light mr-2">Activé</span>
+                                        @else
+                                            <span class="btn btn-sm bg-danger-light mr-2">Désactivé</span>
+                                        @endif
+                                    </td>
+
+                                    <td>
+                                        @if($article->is_commentable )
+                                            <span class="btn btn-sm bg-success-light mr-2">Activé</span>
+                                        @else
+                                            <span class="btn btn-sm bg-danger-light mr-2">Désactivé</span>
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <h2 class="table-avatar">
+                                            <img
+                                                src="{{ asset('storage/profile/' . $article->author->image) }}"
+                                                alt="Auteur"
+                                                class="rounded-circle object-fit-cover"
+                                                width="50"
+                                                height="50"
+                                            >
+                                            <span>
+                                             {{$article->author->name}}
+                                            </span>
+                                        </h2>
+                                    </td>
+
+                                    <td class="text-right">
+                                        <div class="dropdown dropdown-action">
+                                            <a
+                                                href="#"
+                                                class="action-icon dropdown-toggle"
+                                                data-toggle="dropdown"
+                                                aria-expanded="false"
+                                            >
+                                                <i class="fas fa-ellipsis-v ellipse_color"></i>
                                             </a>
-                                            <a class="dropdown-item" href="edit-article.html">
-                                                <i class="fas fa-pencil-alt m-r-5"></i> Modifier
-                                            </a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_asset"><i class="fas fa-trash-alt m-r-5"></i> Supprimer
-                                            </a>
+
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a class="dropdown-item" href="edit-article.html">
+                                                    <i class="fas fa-pencil-alt m-r-5"></i> Voir
+                                                </a>
+
+                                                <a class="dropdown-item" href="edit-article.html">
+                                                    <i class="fas fa-pencil-alt m-r-5"></i> Modifier
+                                                </a>
+
+                                                <a
+                                                    class="dropdown-item"
+                                                    href="#"
+                                                    data-toggle="modal"
+                                                    data-target="#delete_asset"
+                                                >
+                                                    <i class="fas fa-trash-alt m-r-5"></i> Supprimer
+                                                </a>
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                            </tr>
+                                    </td>
+                                </tr>
+                            @endforeach
+
                             </tbody>
                         </table>
                     </div>
