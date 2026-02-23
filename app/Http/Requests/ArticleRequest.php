@@ -23,7 +23,7 @@ class ArticleRequest extends FormRequest
     {
         return [
             'title' => 'required|string|max:255',
-            'description' => 'required|string|max:255',
+            'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpeg,png,jpg|max:2048',
             'is_active' => 'required|boolean',
             'is_shareable' => 'required|boolean',
@@ -41,7 +41,7 @@ class ArticleRequest extends FormRequest
 
             'description.required' => 'La description est obligatoire.',
             'description.string' => 'La description doit être une chaîne de caractères.',
-            'description.max' => 'La description ne doit pas dépasser 255 caractères.',
+
 
             'image.image' => 'Le fichier doit être une image.',
             'image.mimes' => 'L’image doit être au format jpeg, png ou jpg.',
