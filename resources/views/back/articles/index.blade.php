@@ -19,7 +19,6 @@
                             <thead>
                             <tr>
                                 <th>Titre</th>
-                                <th>Image</th>
                                 <th>Categorie</th>
                                 <th>Publication</th>
                                 <th>Partage</th>
@@ -33,13 +32,6 @@
                             @foreach($articles as $article)
                                 <tr>
                                     <td>{{$article->title}}</td>
-                                    <td>
-                                        <img src="{{$article->imageUrl()}}" alt="Image de l'article"
-                                             class="rounded-circle object-fit-cover"
-                                             width="70"
-                                             height="70"
-                                        >
-                                    </td>
                                     <td>{{$article->category->name}}</td>
                                     <td>
                                         @if($article->is_active )
@@ -90,7 +82,7 @@
                                             </a>
 
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="edit-article.html">
+                                                <a class="dropdown-item" href="{{route('article.show', $article)}}">
                                                     <i class="fas fa-pencil-alt m-r-5"></i> Voir
                                                 </a>
 
