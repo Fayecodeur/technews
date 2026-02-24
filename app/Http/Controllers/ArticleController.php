@@ -7,6 +7,7 @@ use App\Models\Article;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ArticleController extends Controller
 {
@@ -55,15 +56,6 @@ class ArticleController extends Controller
             'author_id' => $data['author_id'],
         ]);
 
-        // Gestion des tags
-        if (!empty($data['tags'])) {
-            // On transforme la string en tableau et supprime les espaces superflus
-            $tags = array_map('trim', explode(',', $data['tags']));
-
-            // On attache les tags à l'article (package Conner Tagging)
-            $article->tag($tags);
-        }
-
         return redirect()->route('article.index')->with('success', 'Article créé avec succès');
     }
 
@@ -80,15 +72,44 @@ class ArticleController extends Controller
      */
     public function edit(Article $article)
     {
-        //
+        return view('back.articles.form', ['article' => $article, 'categories' => Category::where('is_active', 1)->get()]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Article $article)
+
+    public function update(ArticleRequest $request, Article $article)
     {
-        //
+        // 1️⃣ Valider les données
+        $data = $request->validated();
+
+        // 2️⃣ Gérer l'image si upload
+        if ($request->hasFile('image')) {
+            // Optionnel : supprimer l'ancienne image pour éviter les fichiers inutiles
+            if ($article->image) {
+                Storage::disk('public')->delete($article->image);
+            }
+            $imagePath = $request->file('image')->store('articles', 'public');
+            $data['image'] = $imagePath;
+        }
+
+        // 3️⃣ Conserver l'auteur existant
+        $data['author_id'] = $article->author_id; // ou Auth::id() si tu veux changer
+
+        // 4️⃣ Mise à jour de l'article
+        $article->update([
+            'title' => $data['title'],
+            'description' => $data['description'],
+            'image' => $data['image'] ?? $article->image,
+            'is_active' => $data['is_active'],
+            'is_commentable' => $data['is_commentable'],
+            'is_shareable' => $data['is_shareable'],
+            'category_id' => $data['category_id'],
+            'author_id' => $data['author_id'],
+        ]);
+
+        return redirect()->route('article.index')->with('success', 'Article mis à jour avec succès');
     }
 
     /**
