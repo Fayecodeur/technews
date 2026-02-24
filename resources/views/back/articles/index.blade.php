@@ -96,7 +96,14 @@
                                                     data-toggle="modal"
                                                     data-target="#delete_asset"
                                                 >
-                                                    <i class="fas fa-trash-alt m-r-5"></i> Supprimer
+                                                    <form action="{{route('article.destroy', $article)}}" method="POST">
+                                                        @csrf
+                                                        @method('DELETE')
+
+                                                    <button class="btn btn-sm text-danger">
+                                                        <i class="fas fa-trash-alt m-r-5"></i> Supprimer
+                                                    </button>
+                                                    </form>
                                                 </a>
                                             </div>
                                         </div>
