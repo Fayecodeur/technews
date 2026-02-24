@@ -2,7 +2,6 @@
 
 namespace App\Models;
 
-use Conner\Tagging\Taggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -12,7 +11,7 @@ use Spatie\Sluggable\SlugOptions;
 
 class Article extends Model
 {
-    use HasFactory, HasSlug, Taggable;
+    use HasFactory, HasSlug;
     protected $fillable = [
         'title',
         'slug',
