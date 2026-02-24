@@ -1,12 +1,25 @@
 @extends('back.layout.app')
-@section('title', 'Ajouter un article')
-@section('header-title', 'Ajouter un article')
+@section('title', @isset($article) ? 'Modifier un article' : 'Ajouter un article' )
+@section('header-title', @isset($article) ? 'Modifier un article' : 'Ajouter un article')
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <form action="{{ route('article.store') }}" method="POST" enctype="multipart/form-data">
+            <form action="{{isset($article) ? route('article.update', $article) :  route('article.store')  }}" method="POST" enctype="multipart/form-data">
                 @csrf
+                @if(isset($article))
+                    @method('PUT')
+                @endif
                 <div class="row">
+                    <!-- image -->
+                @if((isset($article)))
+                    <div class="col-12">
+                        <img src="{{$article->imageUrl()}}"
+                             class="img-fluid rounded"
+                             style="max-width: 300px; height: auto;"
+                             alt="{{$article->title}}">
+                    </div>
+                @endif
+
 
                     <!-- Titre -->
                     <div class="col-md-4">
@@ -16,7 +29,7 @@
                                 class="form-control"
                                 type="text"
                                 name="title"
-                                value="{{ old('title') }}"
+                                value="{{ old('title',$article->title ?? '' )}}"
                             />
                             @error('title')
                             <small class="text-danger">{{ $message }}</small>
@@ -31,7 +44,9 @@
                             <select class="form-select" name="category_id">
                                 <option value="">Sélectionnez une catégorie</option>
                                 @foreach($categories as $categorie)
-                                    <option value="{{ $categorie->id }}" {{ old('category_id') == $categorie->id ? 'selected' : '' }}>
+                                    <option value="{{ $categorie->id }}"
+                                        {{old('category_id', $article->category_id ?? '') == $categorie->id ? 'selected' : '' }}>
+                                        {{ $categorie->name }}
                                         {{ $categorie->name }}
                                     </option>
                                 @endforeach
@@ -70,18 +85,21 @@
                                 class="form-control"
                                 rows="5"
                                 name="description"
-                            >{{ old('description') }}</textarea>
+                            >{{ old('description', $article ?? '') }}</textarea>
                             @error('description')
                             <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
 
+
+
                     <!-- Publication -->
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Publication</label>
                         </div>
+
                         <div class="form-check form-check-inline">
                             <input
                                 type="radio"
@@ -89,10 +107,11 @@
                                 id="article_active"
                                 name="is_active"
                                 value="1"
-                                {{ old('is_active', '1') === '1' ? 'checked' : '' }}
+                                {{ old('is_active', $article->is_active ?? '1') == '1' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_active">Publier</label>
                         </div>
+
                         <div class="form-check form-check-inline">
                             <input
                                 type="radio"
@@ -100,20 +119,23 @@
                                 id="article_inactive"
                                 name="is_active"
                                 value="0"
-                                {{ old('is_active') === '0' ? 'checked' : '' }}
+                                {{ old('is_active', $article->is_active ?? '1') == '0' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_inactive">Ne pas publier</label>
                         </div>
+
                         @error('is_active')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
                     </div>
+
 
                     <!-- Partages -->
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Partages</label>
                         </div>
+
                         <div class="form-check form-check-inline">
                             <input
                                 type="radio"
@@ -121,10 +143,11 @@
                                 id="article_share_active"
                                 name="is_shareable"
                                 value="1"
-                                {{ old('is_shareable', '1') === '1' ? 'checked' : '' }}
+                                {{ old('is_shareable', $article->is_shareable ?? '1') == '1' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_share_active">Partageable</label>
                         </div>
+
                         <div class="form-check form-check-inline">
                             <input
                                 type="radio"
@@ -132,20 +155,23 @@
                                 id="article_share_inactive"
                                 name="is_shareable"
                                 value="0"
-                                {{ old('is_shareable') === '0' ? 'checked' : '' }}
+                                {{ old('is_shareable', $article->is_shareable ?? '1') == '0' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_share_inactive">Non partageable</label>
                         </div>
+
                         @error('is_shareable')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
                     </div>
+
 
                     <!-- Commentaires -->
                     <div class="col-md-4">
                         <div class="form-group">
                             <label>Commentaires</label>
                         </div>
+
                         <div class="form-check form-check-inline">
                             <input
                                 type="radio"
@@ -153,10 +179,11 @@
                                 id="article_comment_active"
                                 name="is_commentable"
                                 value="1"
-                                {{ old('is_commentable', '1') === '1' ? 'checked' : '' }}
+                                {{ old('is_commentable', $article->is_commentable ?? '1') == '1' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_comment_active">Autorisé</label>
                         </div>
+
                         <div class="form-check form-check-inline">
                             <input
                                 type="radio"
@@ -164,10 +191,11 @@
                                 id="article_comment_inactive"
                                 name="is_commentable"
                                 value="0"
-                                {{ old('is_commentable') === '0' ? 'checked' : '' }}
+                                {{ old('is_commentable', $article->is_commentable ?? '1') == '0' ? 'checked' : '' }}
                             >
                             <label class="form-check-label" for="article_comment_inactive">Non autorisé</label>
                         </div>
+
                         @error('is_commentable')
                         <small class="text-danger d-block">{{ $message }}</small>
                         @enderror
@@ -175,7 +203,9 @@
 
                     <!-- Bouton -->
                     <div class="col-12 mt-3">
-                        <button type="submit" class="btn btn-primary w-25">Enregistrer l'article</button>
+                        <button type="submit" class="btn btn-primary w-25">
+                            {{ isset($article) ? "Mettre à jour l'article" : "Enregistrer l'article" }}
+                        </button>
                     </div>
 
                 </div>
