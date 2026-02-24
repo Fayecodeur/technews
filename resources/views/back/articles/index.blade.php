@@ -86,7 +86,7 @@
                                                     <i class="fas fa-pencil-alt m-r-5"></i> Voir
                                                 </a>
 
-                                                <a class="dropdown-item" href="edit-article.html">
+                                                <a class="dropdown-item" href="{{route('article.edit', $article)}}">
                                                     <i class="fas fa-pencil-alt m-r-5"></i> Modifier
                                                 </a>
 
