@@ -1,20 +1,26 @@
 @extends('back.layout.app')
-@section('title', 'Ajouter un auteur')
-@section('header-title', 'Ajouter un auteur')
+@section('title', @isset($author) ? 'Modifier un auteur' : 'Ajouter un auteur')
+@section('header-title', @isset($author) ? 'Modifier un auteur' : 'Ajouter un auteur')
 
 @section('content')
     <div class="row justify-content-center">
         <div class="col-lg-6 ">
-            <form action="{{ route('author.store') }}" method="POST" class="border p-5 shadow-sm">
+            <form
+                action="{{ isset($author) ? route('author.update',$author) : route('author.store') }}"
+                method="POST"
+                class="border p-5 shadow-sm"
+            >
                 @csrf
-
+        @if(isset($author))
+            @method('PUT')
+        @endif
                 <div class="form-group">
                     <label>Nom</label>
                     <input
                         class="form-control"
                         type="text"
                         name="name"
-                        value="{{ old('name') }}"
+                        value="{{ old('name', $author->name ?? '') }}"
                     />
                     @error('name')
                     <small class="text-danger">{{$message}}</small>
@@ -27,7 +33,7 @@
                         class="form-control"
                         type="email"
                         name="email"
-                        value="{{ old('email') }}"
+                        value="{{ old('email', $author->email ?? '') }}"
                     />
                     @error('email')
                     <small class="text-danger">{{$message}}</small>
