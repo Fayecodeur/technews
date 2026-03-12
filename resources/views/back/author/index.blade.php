@@ -20,7 +20,7 @@
                 <div class="card-body booking_card">
                     <div class="table-responsive">
                         <table
-                            class="datatable  table-stripped table table-hover table-center mb-0">
+                            class="datatable table-sm  table-stripped table table-hover table-center mb-0">
                             <thead>
                             <tr>
                                 <th>Nom</th>
@@ -57,18 +57,18 @@
                                             ><i class="fas fa-ellipsis-v ellipse_color"></i
                                                 ></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="edit-staff.html"
+                                                <a class="dropdown-item" href="{{route('author.edit',$author)}}"
                                                 ><i class="fas fa-pencil-alt m-r-5"></i>
                                                     Modifier</a
                                                 >
-                                                <a
-                                                    class="dropdown-item"
-                                                    href="#"
-                                                    data-toggle="modal"
-                                                    data-target="#delete_asset"
-                                                ><i class="fas fa-trash-alt m-r-5"></i>
-                                                    Supprimer</a
-                                                >
+
+                                                <form action="{{ route('author.destroy', $author) }}" method="POST" class="m-0">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="dropdown-item text-danger">
+                                                        <i class="fas fa-trash-alt m-r-5"></i> Supprimer
+                                                    </button>
+                                                </form>
                                             </div>
                                         </div>
                                     </td>
