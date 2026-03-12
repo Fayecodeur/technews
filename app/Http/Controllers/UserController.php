@@ -47,24 +47,32 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(User $user)
+    public function edit(User $author)
     {
-        //
+        return view('back.author.create', compact('author'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UserRequest $request, User $user)
+    public function update(UserRequest $request, User $author)
     {
-        //
+        $author->update($request->validated());
+
+        return redirect()
+            ->route('author.index')
+            ->with('success', 'Utilisateur modifié avec succès');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(User $user)
+    public function destroy(User $author)
     {
-        //
+        $author->delete();
+        return redirect()
+            ->route('author.index')
+            ->with('success', 'Utilisateur supprimé avec succès');
     }
+
 }
